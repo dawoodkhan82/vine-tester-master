@@ -31,13 +31,28 @@ class Tester_TesterUITests: XCTestCase {
     func testExample() {
         
         let app = XCUIApplication()
+        
+        //Tap on 5th thumbnail (Index 4)
         app.tables.element.cells.elementBoundByIndex(4).tap()
+        
         let textField = app.otherElements.containingType(.NavigationBar, identifier:"Tester_Tester.PostView").childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.TextField).element
+        
+        //Tap on Text Field to Type Comment
         textField.tap()
+        
+        //Type Comment: "hello"
         textField.typeText("hello")
+        
+        //Set-up variable for Text View String Value
         var commentsViewValue = app.textViews.element.value as? String
+        
+        //Assert commentsViewValue contains nothing before submitting comment
         XCTAssertEqual(commentsViewValue, "")
+        
+        //Submit Comment
         app.buttons["Add Comment"].tap()
+        
+        //Verify commentsViewValue contains "hello" after submitting comment
         commentsViewValue = app.textViews.element.value as? String
         XCTAssertEqual(commentsViewValue, "\nhello")
 
